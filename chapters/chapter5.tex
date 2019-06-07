@@ -291,7 +291,7 @@ KDE serves to smooth a variable distribution by treating each bin in the PDF as 
 \end{figure}
 
 %% subsec: data vs MC
-\subsubsection{Data vs Monte Carlo PDFs}
+\subsubsection{Data vs Monte Carlo PDFs}\label{sec:data_vs_mc}
 The LH PDFs can be constructed from data or MC events. Using MC allows for the use of truth-matching, where the truth labels described in Chapter 2 are checked to guarantee the objects are or are not electrons. This ensures highly pure signal and background PDFs. However, estimations and imperfect detector modeling in the MC simulation chain results in shape differences between data-driven and MC-driven PDFs, rendering a MC-driven LH less effective when applied to actual data (see Figure \ref{fig:data_v_mc}). These effects can be reduced by adjusting the MC PDFs with data-driven corrections as described in Section \ref{sec:corr_pdfs}, but are not entirely eliminated. On the other hand, data-driven PDFs require additional work to eliminate all contributions from non-desired physics processes and measuring the resulting purity is difficult. In particular, for $J/\psi\rightarrow ee$ PDFs, significant contributions from non-prompt $J/\psi$s (from heavy flavor decays) remain after Tag \& Probe selections and mass cuts. The current method for purifying data-driven $J/\psi\rightarrow ee$ PDFs is described in Section \ref{sec:low_pt_soft}\\
 
 \begin{figure}[hbt!]
@@ -428,5 +428,59 @@ Comparisons of the PDF shapes of signal and background for these variables can b
 
 %%% SECTION: ML
 \section{Machine Learning and Electron ID\label{ml_id}}
-%% SUBSECTION: IMAGE BASED
-\subsection{Image Based Electron ID}
+CNN driven particle ID using images formed from the hadronic calorimeter has been quite successful (Chapter 4). This technique is currently being studied for application to electron and photon ID in the LAr EM calorimeter.\\
+
+The creation of electron images in the EM calorimeter is more difficult than forming images in the hadronic calorimeter because the detector granularity varies substantially between layers addition to variations between the barrel and endcap regions (Chapter 2). A data set of over 2 million events and corresponding images is supported by the ATLAS E/Gamma Working Group. In order to preserve the most information possible, the data-set for these studies contains different granularity images for each layer of the EM calorimeter. The images are formed by first taking all cells in a $7\times 11$ window of the second calorimeter layer (ECAL2) centered on the highest energy cell in the electron ROI. All cells in the other 3 layers that overlap with this window are included in the image for that layer. A sample image is shown in Figure \ref{fig:elec_imgs}. As is done in many of the jet image applications, initial studies are restricted to the barrel region of the detector and in the case that the ECAL2 $7\times11$ window extends beyond the barrel region the non-barrel pixels are set to zero.\\
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=6in]{figures/chapter5/regular_electron_imgs.png}
+    \caption{A sample electron image for each of the four EM calorimeter layers.}
+    \label{fig:elec_imgs}
+\end{figure}
+
+With this method of image construction the CNN architecture design must account for the different layer granularities. For initial studies, the images were all up-sampled to a common granularity of $128\times128$ as shown in Figure \ref{fig:upsamp_elec_imgs} using a Keras 2D upsampling convolutional layer \cite{keras}. The four images are then concatenated into a $128\times128\time4$ stack and processed through a convolutional layer, ReLu activation layer, and a maxpooling layer. The processed images are then flattened and concatenated with additional scalar features of the particle like charge, $\eta$, $\phi$, and TRTPID. This vector is then input into two fully connected NNs, one of which predicts a classification value (truth is 1 for signal and 0 for backgrounds) and one of which predicts a scale factor to calibrate the particle energy. The network was entirely constructed in Keras with a TensorFlow \cite{tensorflow} back end and the full architecture is shown in Figure \ref{fig:elec_cnn}.\\ 
+
+\pagebreak
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=5.5in]{figures/chapter5/upsamp_elec_imgs.png}
+    \caption{The same electron image from Figure \ref{fig:elec_imgs} after being up-sampled to a uniform granularity of $128\times128$.}
+    \label{fig:upsamp_elec_imgs}
+\end{figure}
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=5.5in]{figures/chapter5/electron_cnn_network.png}
+    \caption{Network architecture for image-based electron ID and calibration.}
+    \label{fig:elec_cnn}
+\end{figure}
+
+The network was trained using 1 million signal (prompt electron) samples and 100,000 background ($2\rightarrow2$ QCD processes) samples where 20\% was held-out for the test-set and 20\% for the validation set. The training process used standard backpropagation with a binary cross-entropy loss function. Results of the two tasks are shown in Figures \ref{fig:elec_id_cnn} and \ref{fig:elec_calib_cnn}; the classification task achieves excellent signal-background separation and the calibration task actually outperforms the current ATLAS E/Gamma algorithm \cite{egam_calib}. 
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=3.5in]{figures/chapter5/elec_id_cnn_plot.png}
+    \caption{Classifier output of  the image-based electron ID CNN for signal (red) and background (blue).}
+    \label{fig:elec_id_cnn}
+\end{figure}
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=3.5in]{figures/chapter5/elec_calib_cnn_plot.png}
+    \caption{Normalized difference between predicted particle energy and truth particle energy for the imaged-based calibration CNN (orange) and the standard ATLAS electron calibration algorithm (blue).}
+    \label{fig:elec_calib_cnn}
+\end{figure}
+
+\subsection{Future Studies}
+This area of research is on-going and there are several techniques being studied to improve upon the performance described above. For instance, there are other possible ways of addressing the granularity mis-match such as applying a separate convolution to each layer image and concatenating them just before the task networks or up-sampling and applying a 3D convolution (Figure \ref{fig:3d_conv}) that would allow the network to learn relationships between the EM calorimeter layers. Additionally, track information can be included in either by including it in the scalar feature concatenation or by creating track images using the Inner Detector outputs.\\
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=2.5in]{figures/chapter5/3d_conv.png}
+    \caption{A schematic depiction of a 3D convolution for use in a CNN.}
+    \label{fig:3d_conv}
+\end{figure}
+
+Including other types of information like timing and cell quality could further improve network performance. There are important questions that must be addressed before an image-based electron ID could be fully incorporated into the ATLAS software flow. This includes how to handle the barrel to endcap transition when constructing images and understanding whether including $\eta$ values allows the network to account for the fact that the layer images do not actually lie directly on top of each other in the physical detector. Furthermore, as discussed in Section \ref{sec:data_vs_mc} the ultimate goal is to develop an algorithm that is fully data-driven. This presents additional challenges when training ML algorithms as they typically require very high training sample purity in order to achieve reasonable performance. Methods for purifying the data-sets currently used for the LH-based ID without biasing any kinematics are being explored.
