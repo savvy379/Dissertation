@@ -3,13 +3,57 @@ I fly a star ship across the universe divide and when I reach the other side; I'
 \qauthor{Willie Nelson}
 \end{savequote}
 
-\chapter{Final Remarks}
-\label{conclusion}
+\chapter{Conclusions}
+This thesis presented the role that computing, machine learning, and electrons play in ATLAS and the $VH,H\rightarrow\tau\tau$ analysis specifically.\\
 
-\section{Projected Significance in Run 2}
+Chapter 1 introduced the Standard Model and the particles and forces it describes. It also laid out the basic mathematical formalism, in terms of Quantum Field Theory, of the Standard Model and how that formalism can be used to make predictions that are then measurable at the Large Hadron Collider.\\
 
-\section{Analysis Status}
+Chapter 2 described the design and operation of the LHC and detailed the various physical components of the ATLAS detector and how they are optimized for their individual physics tasks.\\
 
-\section{Machine Learning in Analysis}
+Chapter 3 explained the flow of data within ATLAS data flow from the trigger level through storage on the Worldwide LHC Computing Grid. It also described the various software packages used to simulate MC ATLAS events and the algorithms used to reconstruct, identify, and calibrate individual physics objects.\\
 
-\section{Conclusions}
+Chapter 4 introduced the core Machine Learning concepts appropriate for physics data analyses and provided an overview of the current status of ML in LHC experiments.\\
+
+Chapter 5 extensively detailed the design, implementation, and functionality of the ATLAS electron identification algorithm. It also presented novel work to provide a fully data-driven ID, extend the $p_T$ range of the algorithm, and use image-based ML to design an improved ID.\\
+
+Chapter 6 described the basic components of the ATLAS Run-2 $VH,H\rightarrow\tau\tau$ analysis including the object criteria, analysis category definitions, and mass estimation techniques. It also presented the results of the corresponding Run-1 analysis and introduced planned improvements in the Run-2 workflow.\\
+
+Finally, Chapter 7 focused on the difficult process of modeling the fake backgrounds in the $VH,H\rightarrow\tau\tau$ analysis. It presented a mathematical derivation of the Fake Factor Method, described the process of measuring object fake rates, and showed preliminary electron, muon, and tau fake rates. It also motivated the need for an analysis specific FF software, described its implementation, and presented preliminary validation studies.
+
+\section{$VH,H\rightarrow\tau\tau$ Analysis}
+
+\subsection{Analysis Status}
+The ATLAS $VH,H\rightarrow\tau\tau$ analysis is on-going with a small but dedicated team who interface with and receive support from the larger ATLAS $H\rightarrow\tau\tau$ analysis group. Although the studies presented here were done with only one year of data (either 2017 or 2018) the final analysis will incorporate the full four year, Run-2 139$\text{fb}^{-1}$ data-set.\\
+
+At the time of writing, the Run-2 analysis category selections (and corresponding Control Region selections) have been implemented. Their efficiency is being evaluated and small improvements (like the electron $p_T$ floor reduction described in Chapter 6) are being explored. The mass estimation methods (MMC and $M_{2T}$, Chapter 6) have also been implemented. Preliminary fake rates and fake factors have been measured for electrons, muons, and taus (Chapter 7). Finally, as described in Chapter 7, the core functionality of the analysis specific Fake Factor application software has been built and initial closure test studies have begun.\\
+
+\subsection{Expected Events}
+The number of expected $VH,H\rightarrow\tau\tau$ in the full Run-2 data set can be calculated for ZH and WH channels. The basic equation used for this calculation is $n=\mathcal{L}\times\sigma_{VH}\times \text{BR}(H\rightarrow\tau\tau) \times \text{BR(allowed }\tau\text{ decays)}\times \text{BR}(V\rightarrow\text{light }l)$ where the allowed $\tau$ decays are all combinations of two $\tau$ decay modes except lep-lep. The predictions from this equation using cross-section from the 2018 CERN Higgs Yellow Report \cite{yellow_report} and branching ratios from the Particle Data Group \cite{pdg} are shown below. Notably, the cross-section differs from the Run-1 cross-section due to the higher center-of-mass energy.\\
+
+\begin{table}[htb!]
+    \centering
+    \begin{tabular}{|c|c|}
+    \hline
+        \textbf{Analysis Channel} & \textbf{Expected Events in Run-2} \\
+        \hline
+        ZH & 161.6\\
+        WH & 123.8\\
+        \hline
+    \end{tabular}
+    \caption{Expected event yield in the full Run-2 data-set for the ZH and WH channels of the $VH,H\rightarrow\tau\tau$ analysis.}
+    \label{tab:exp_events}
+\end{table}
+
+Despite the large amount of Run-2 data recorded by ATLAS, the expect event numbers are quite low. This underscores the importance of building highly efficient analysis channel selections.
+
+\subsection{Machine Learning in the Analysis}
+There are several ways ML could improve the Run-2 $VH,H\rightarrow\tau\tau$ analysis. One method is developing an ML-based classifier to remove the irreducible backgrounds. This strategy is well motivated: a Run-1 study showed that a BDT trained to separate signal from background gave a potential upper limit improvement of ~30\% (when fitting all analysis categories separately). Furthermore, the CMS Run-2 $H\rightarrow\tau\tau$ analysis utilized a set of NNs (one for each of the three final states for each year of data) to distinguish between two signal categories and several background categories. The networks achieved substantial separation between all classes and considering each background process separately improved signal purity \cite{cms_htautau}.\\ 
+
+This techniques is currently being studied for use in the $VH,H\rightarrow\tau\tau$. A set of NNs (one for each analysis category) has been implemented to separate signal from diboson backgrounds. They require additional MC statistics to train properly and these samples are currently in production. An extension of this study would aim to additionally separate signal from fake backgrounds by training the NNs on a combination of diboson MC, signal MC, and data processed through the FF software. If this method is used in the final analysis, the NN output distributions would be fit as described in \cite{cms_htautau}, eliminating the dependence on MMC and $M_{2T}$ to estimate the di-tau mass spectrum.\\
+
+In the case that the above method is unsuccessful or not incorporated into the final analysis, ML could also be used to improve the mass estimation techniques. As described in Chapters 4 and 7, BDTs, NNs, and imaged-based CNNs have been used successfully to calibrate particle energy and mass in other instances. Rather than relying on geometric reconstructions and probability distributions to approximate the missing mass, an ML algorithm could be used to predict a mass correction factor. It is conceivable that this technique could make use of additional event information that is not used in the MMC and $M_{2T}$ methods.
+
+\section{Final Remarks}
+%computing important. especially for HLLHC
+
+%position of LHC physics has shifted, get to learn from industry. unique constraints are also interesting to them.  inspiring to see how this has changed over my time in grad school. (work to better train students, homoginze tools, making more flexible formats. Additional work is required (shift attitudes on both sides, train students, host workshops) 
