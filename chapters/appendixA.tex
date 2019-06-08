@@ -1,9 +1,84 @@
 \chapter{Author's Individual Contributions}
 \label{AppendixA}
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet enim. Suspendisse id velit vitae ligula volutpat condimentum. Aliquam erat volutpat. Sed quis velit. Nulla facilisi. Nulla libero. Vivamus pharetra posuere sapien. Nam consectetuer. Sed aliquam, nunc eget euismod ullamcorper, lectus nunc ullamcorper orci, fermentum bibendum enim nibh eget ipsum. Donec porttitor ligula eu dolor. Maecenas vitae nulla consequat libero cursus venenatis. Nam magna enim, accumsan eu, blandit sed, blandit a, eros.
+As is clear from this thesis, ATLAS work is highly collaborative. I am lucky to have worked with many groups with ATLAS and CERN more broadly, including both Professor Keith Baker's and Professor Sarah Demer's research groups at Yale, the ATLAS E/Gamma Working Group, the ATLAS Tau Working Group, the ATLAS HLep Physics Analysis Group, and the CERN Inter-experimental Machine Learning Working Group (IML). I list below some of my individual contributions to these efforts.
 
-Quisque facilisis erat a dui. Nam malesuada ornare dolor. Cras gravida, diam sit amet rhoncus ornare, erat elit consectetuer erat, id egestas pede nibh eget odio. Proin tincidunt, velit vel porta elementum, magna diam molestie sapien, non aliquet massa pede eu diam. Aliquam iaculis. Fusce et ipsum et nulla tristique facilisis. Donec eget sem sit amet ligula viverra gravida. Etiam vehicula urna vel turpis. Suspendisse sagittis ante a urna. Morbi a est quis orci consequat rutrum. Nullam egestas feugiat felis. Integer adipiscing semper ligula. Nunc molestie, nisl sit amet cursus convallis, sapien lectus pretium metus, vitae pretium enim wisi id lectus. Donec vestibulum. Etiam vel nibh. Nulla facilisi. Mauris pharetra. Donec augue. Fusce ultrices, neque id dignissim ultrices, tellus mauris dictum elit, vel lacinia enim metus eu nunc.
+\section{Electron ID}
+\begin{itemize}
+    \item I supported (with another colleague) the electron ID for two and a half years. This involved answering questions from users, providing retunings of the ID when ATLAS software was updated, and providing documentation and training materials to ATLAS physicists.
+    \item I was fundamental in introducing ML techniques to the E/Gamma software development group. In particular, I developed the idea of using image-based CNNs for electron ID.
+    \item I helped develop the software to produce images from EM calorimeter cells.
+    \item I built an initial CNN to discriminate electron images from background images, and have been studying the feasibility of using a 3D convolution in this architecture.
+    \item I developed the software to produce a data-driven $J/\psi\rightarrow ee$-based electron ID for low $p_T$ electrons. Additionally, I implemented the functionality necessary to provide electron ID support down to $p_T=4.5$ GeV, comapred to $7 GeV$ in Run-1.
+    \item I performed studies to optimize the low $p_T$ electron ID Likelihood variables including implementing new variables.
+\end{itemize}
 
-Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis.
+\subsection{Related Presentations}
+\begin{itemize}
+    \item `Electron ID Optimization at Low $p_T$’: invited talk at ATLAS E/Gamma Workshop (November 2016)
+    \item `Electron ID Optimization at Low $p_T$’: invited talk at ATLAS TRT Days (February 2017)
+    \item `Electron ID in ATLAS Run 2’: poster presented at LHCP (May 2017)
+    \item `Electron ID in ATLAS Run 2’: contributed talk at US ATLAS Meeting (July 2017)
+    \item `The Future of Electron ID’: invited talk at ATLAS E/Gamma Workshop (November 2017)
+    \item ‘Convolutional Neural Networks for Electron ID in the ATLAS Detector’: poster presented at Women in Machine Learning (December 2017)
+    \item `Electron ID in ATLAS Run 2’: poster presented at HEP2018 (January 2018)
+    \item ‘Visualizing Electrons in ATLAS’: invited student talk at USLUA Meeting (October 2018), lightning round winner
+    \item `Imaging Electrons in ATLAS': contributed talk at APS April Meeting (April 2019)
+    \item Publication: “Electron reconstruction and identification in the ATLAS experiment using the 2015 and 2016 LHC proton-proton collision data at sqrt(s)=13TeV”, 2018, submitted to European Physics Journal
+    \item Publication: “Electron efficiency measurements with the ATLAS detector using 2015 LHC proton-proton collisions”, 2016, ATLAS-CONF-2016-024
+\end{itemize}
 
+\section{$VH,H\rightarrow\tau\tau$ Analysis}
+
+\begin{itemize}
+    \item I helped produce simulation and data samples for the analysis.
+    \item I demonstrated potential increased signal yield in lep-had channels by lowering the minimum electron $p_T$. 
+    \item I measured the electron fake rates and fake factors for the ZH and WH analysis categories
+    \item I conducted electron origin studies to ensure that the ZH and WH fake region selections accurately approximate the fake composition in the signal region. 
+    \item I derived the FF application formulas for two, three, and four final state objects.
+    \item I developed the FF application software including modified signal and control region selections. 
+\end{itemize}
+
+\subsection{Related Presentations}
+\begin{itemize}
+    \item ‘Lepton Fake Rates in $VH,H\rightarrow\tau\tau$’: contributed talk at ATLAS Tau Workshop (October 2017)
+    \item ‘Solutions and Improvements for $VH,H\rightarrow\tau\tau$ Run 2 Analysis’: invited student talk at USLUA Meeting (November 2017)
+    \item ‘VH Analysis Status’: invited talk at HLeptons Workshop (November 2018)
+\end{itemize}
+
+\section{Machine Learning}
+\begin{itemize}
+    \item I demonstrated improved signal selection in the $H\rightarrow ZZ_d\rightarrow llll$ analysis using BDTs and NNs.
+    \item I co-organized a workshop on Deep Learning for Physical Sciences at NeurIPS 2017.
+    \subitem - Submitted a proposal for Deep Learning and Physical Science for NeurIPS 2019.
+    \item I've been actively involved in the ATLAS ML Working Group and the CERN IML working group including giving talks, developing tutorials, and providing documentation.
+    \item This summer I will be teaching a hands-on ML course at the Princeton CoDAS summer school. 
+\end{itemize}
+
+\subsection{Related Presentations}
+\begin{itemize}
+    \item  `Machine Learning for Jet Physics': group project at the SLAC Summer Institute, winner of the school-wide competition
+    \item ‘Search for a Dark Z Boson with Machine Learning at ATLAS’: contributed talk at Dark Interactions Workshop (October 2016)
+    \item ‘Machine Learning in ATLAS’: invited talk at SYNPA (December 2017)
+    \item ‘Machine Learning in ATLAS’: Colloquium at Hanyang University (December 2017)
+    item - `NeurIPS 2017 Summary': invited talk in the IML forum 
+    \item Publication: “Machine Learning in High Energy Physics Community White Paper”, Proceedings, 18th International Workshop on Advance Computing and Analysis Techniques in Physics Research, 2018
+    \item `Modeling Opioid Abuse Indicators and Interventions in Appalachia': poster presented at ICLR AI for Social Good Workshop (May 2019)
+\end{itemize}
+
+\section{Outreach}
+\begin{itemize}
+    \item I've helped in developing content for and managing the ATLAS social media accounts for the past 4 years, including being the primary manager of the Instagram account.
+    \item I developed the `Physicist Fridays' series to highlight young members of the collaboration.
+    \item I helped promote ATLAS outreach efforts including coloring books, web material, publications, and teacher resources.
+    \item I helped develop science communication trainings for HEP physicists. 
+    \item I participated in annual trips to DC to advocate for continued federal investments in basic science research. 
+\end{itemize}
+
+\subsection{Related Presentations}
+\begin{itemize}
+    \item ‘Data Collection and Analysis at the ATLAS Detector’: poster at Yale Day of Data (November 2016)
+    \item ‘Engaging Younger Audiences Using Instagram’: invited talk at ATLAS Week (February 2018)
+    \item ‘ATLAS Social Media’: invited talk at US ATLAS Meeting (August 2018)
+    \item Publication: “Social Media Strategy for the ATLAS Experiment”, 2016, Proceedings of Science 38th International Conference on High Energy Physics
+\end{itemize}
