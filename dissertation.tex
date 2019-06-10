@@ -27,10 +27,6 @@
 \maketitle
 \copyrightpage
 \tableofcontents
-\listoffigures
-\addcontentsline{toc}{chapter}{\listfigurename}
-\listoftables
-\addcontentsline{toc}{chapter}{\listtablename}
 \dedicationpage
 \addcontentsline{toc}{chapter}{Acknowledgements}
 \acknowledgments
@@ -40,12 +36,12 @@
 % include each chapter...
 \setcounter{chapter}{-1}  % start chapter numbering at 0
 \include{chapters/introduction}
-\include{chapters/chapter1}
-\include{chapters/chapter2}
-\include{chapters/chapter3}
-\include{chapters/chapter4}
-\include{chapters/chapter5}
-\include{chapters/chapter6}
+%\include{chapters/chapter1}
+%\include{chapters/chapter2}
+%\include{chapters/chapter3}
+%\include{chapters/chapter4}
+%\include{chapters/chapter5}
+%\include{chapters/chapter6}
 \include{chapters/chapter7}
 \include{chapters/conclusion}
 \begin{appendices}
@@ -53,6 +49,10 @@
 \end{appendices}
 
 \singlespacing
+\listoffigures
+\addcontentsline{toc}{chapter}{\listfigurename}
+\listoftables
+\addcontentsline{toc}{chapter}{\listtablename}
 
 % the back matter
 \clearpage
